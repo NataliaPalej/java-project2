@@ -76,4 +76,14 @@ public class Phone implements Serializable {
 	public void setMemory(int memory) {
 		this.memory = memory;
 	}
+	
+	public String printDetails() {
+		return "Make: " + this.make + 
+				"\tModel: " + this.model + 
+				"\tMemory: " + this.memory + 
+				"\tCamera: " + this.camera + 
+				"\tScreen: " + this.screen + 
+				"\tSmart: " + this.smart + 
+				"\tPrice: " + this.price;
+	}
 }
