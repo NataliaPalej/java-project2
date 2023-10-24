@@ -42,6 +42,8 @@ public class TestPhone {
 			System.out.println(phone.printDetails());
 		}
 		
+		System.out.println("\n--------------------------------------------------------------------------------------------------------------------\n");
+		
 		// Print message phone successfully deleted
 		System.out.println("\nDeleting Alcatel... \n" + phones.remove(6).getMake() + " successfully deleted.");
 		
@@ -52,6 +54,8 @@ public class TestPhone {
 		} catch (Exception e) {
 			System.out.println("\nChecking if phone still in table...\nPhone doens't exist in the table.");
 		}
+		
+		System.out.println("\n--------------------------------------------------------------------------------------------------------------------\n");
 		
 		// Add new phone to the list
 		phones.add(new Phone("Huawei", "P30 Pro", 128, 14.5, 5.4, "Yes", 250));
