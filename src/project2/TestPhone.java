@@ -1,3 +1,5 @@
+// A00279259 N.Palej
+
 package project2;
 
 import java.io.FileInputStream;
