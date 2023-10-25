@@ -7,88 +7,124 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.List;
 
-import javax.swing.BorderFactory;
 import javax.swing.*;
 import javax.swing.SwingConstants;
-import javax.swing.border.Border;
-
 
 
 @SuppressWarnings("serial")
-public class PhoneGUI extends JFrame implements ActionListener  {
+public class PhoneGUI extends JFrame implements ActionListener, Serializable  {
 	
 	Container cp;
 	
-	// List to retrieve phones
-	List<Phone> phoneList;
+	GridBagLayout gridBag = new GridBagLayout();
+	GridBagConstraints c = new GridBagConstraints();
 	
 	JButton b1 = new JButton("SHOW");
 	JButton b2 = new JButton("CLEAR");
 	JLabel l1 = new JLabel("Show all Phones", SwingConstants.CENTER);
 	JLabel l2 = new JLabel(" ", SwingConstants.CENTER);
+	JLabel l3 = new JLabel(" ", SwingConstants.CENTER);
+	
+	JPanel phonePanel = new JPanel();
+	JPanel buttonPanel = new JPanel();
 	
 	public PhoneGUI() {
 		setTitle("Natalia Palej A0027959");
-		
-		GridBagLayout gridBag = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		cp = getContentPane();
 		cp.setLayout(gridBag);
-		
+		cp.setBackground(Color.white);
+			
 		c.fill = GridBagConstraints.HORIZONTAL;
 		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		Border blackline = BorderFactory.createLineBorder(Color.black);
-		
-		b1.setPreferredSize(new Dimension(150, 30));
-		b1.setBackground(Color.PINK);
+		b1.setBackground(Color.DARK_GRAY);
+		b1.setForeground(Color.white);
 		b1.addActionListener(this);
-		b2.setPreferredSize(new Dimension(150, 30));
-		b2.setBackground(Color.black);
-		b2.setForeground(Color.white);
+		b2.setBackground(Color.red);
 		b2.addActionListener(this);
-		l1.setPreferredSize(new Dimension(150, 30));
-		l1.setBorder(blackline);
 		
 		c.gridx = 0;
 		c.gridy = 0;
 		gridBag.setConstraints(l1, c);
 		cp.add(l1);
 		
+		// Add empty line between
 		c.gridx = 0;
 		c.gridy = 1;
 		gridBag.setConstraints(l2, c);
 		cp.add(l2);
 		
+		// Phone labels panel
+		phonePanel.setLayout(new BoxLayout(phonePanel, BoxLayout.Y_AXIS));
+        c.gridx = 0;
+        c.gridy = 2;
+        gridBag.setConstraints(phonePanel, c);
+        cp.add(phonePanel);
+        
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
 		c.gridx = 0;
-		c.gridy = 2;
-		gridBag.setConstraints(b1, c);
+		c.gridy = 3;
+		gridBag.setConstraints(buttonPanel, c);
 		cp.add(b1);
-		
-		c.gridx = 1;
-		c.gridy = 2;
-		gridBag.setConstraints(b2, c);
 		cp.add(b2);
 		
-		setSize(500, 400); 
+		// Add empty line between
+		// c.gridx = 0;
+		// c.gridy = 4;
+		// gridBag.setConstraints(l3, c);
+		// cp.add(l3);
+		
+		//c.gridx = 1;
+		//c.gridy = 4;
+		//gridBag.setConstraints(buttonPanel, c);
+		
+		
+		setSize(800, 500); 
 		setVisible(true);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(b1)) {
-			System.out.println("Button clicked.");
+			System.out.println("Show button clicked.");
 			l1.setText("Phones Table");
-			// Retrieve list of phones 
-			l2.setText(""); 
-        }
+
+			// Retrieve list of phones
+	        List<Phone> phoneList = getPhoneList();
+	        
+	        if (!phoneList.isEmpty()) {
+	        	for (Phone phone : phoneList) {
+					// Create new label for each object 
+					 JLabel phoneLabel = new JLabel(phone.printDetails(), SwingConstants.CENTER);
+					 // Add the label to phone panel
+		             phonePanel.add(phoneLabel);   
+	        	}
+	        	phonePanel.setVisible(true);
+			}
+	        else {
+	        	System.out.println("List empty");
+	        }
+		}
+		else if (e.getSource().equals(b2)) {
+			System.out.println("Clear button clicked.");
+			l1.setText("Show Phones Table:");
+			
+			// Delete phones list
+			phonePanel.removeAll();
+			phonePanel.setVisible(false);
+		}
 		else {
 			System.out.println("Something's wrong");
 		}
+	}
+	
+	// Call deserialisePhones method from TestPhone class
+	public List<Phone> getPhoneList() {
+	    return TestPhone.deserialisePhones();
 	}
 	
 	public static void main(String[] args) {
