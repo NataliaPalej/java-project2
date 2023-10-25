@@ -80,12 +80,12 @@ public class Phone implements Serializable {
 	}
 	
 	public String printDetails() {
-		return "Make: " + this.make + " " +
-				"\tModel: " + this.model + " " +
-				"\tMemory: " + this.memory + " " +
-				"\tCamera: " + this.camera + " " +
-				"\tScreen: " + this.screen + " " +
-				"\tSmart: " + this.smart + " " +
-				"\tPrice: " + this.price + " ";
+		return "Make: " + this.make +
+				"\tModel: " + this.model +
+				"\tMemory: " + this.memory +
+				"\tCamera: " + this.camera +
+				"\tScreen: " + this.screen +
+				"\tSmart: " + this.smart +
+				"\tPrice: " + this.price ;
 	}
 }

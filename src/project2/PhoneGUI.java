@@ -89,9 +89,9 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 			if (!phoneList.isEmpty()) {
 				for (Phone phone : phoneList) {
 					// Create new label for each object 
-					JLabel phoneLabel = new JLabel(phone.printDetails(), SwingConstants.CENTER);
-					// Add the label to phone panel
-					phonePanel.add(phoneLabel);
+					JTextField phoneDetails = new JTextField(phone.printDetails(), SwingConstants.CENTER);
+					// Add the phone panel
+					phonePanel.add(phoneDetails);
 					System.out.println(phone.printDetails());
 				}
 				phonePanel.setVisible(true);
