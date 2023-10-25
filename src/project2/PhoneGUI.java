@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+
 import javax.swing.*;
 import javax.swing.SwingConstants;
 
@@ -41,12 +43,13 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 		b2.setBackground(Color.red);
 		b2.addActionListener(this);
 
+		l1.setFont(new Font("Arial", Font.PLAIN, 30));
 		c.gridx = 0;
 		c.gridy = 0;
 		gridBag.setConstraints(l1, c);
 		cp.add(l1);
 
-// Add empty line between
+// Add empty line between	
 		c.gridx = 0;
 		c.gridy = 1;
 		gridBag.setConstraints(l2, c);
@@ -84,24 +87,25 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 		if (e.getSource().equals(b1)) {
 			System.out.println("Show button clicked.");
 			l1.setText("Phones Table");
-// Retrieve list of phones
+			
+			// Retrieve list of phones
 			List<Phone> phoneList = getPhoneList();
 			if (!phoneList.isEmpty()) {
 				for (Phone phone : phoneList) {
-// Create new label for each object 
+					// Create new label for each object 
 					JLabel phoneLabel = new JLabel(phone.printDetails(), SwingConstants.CENTER);
-// Add the label to phone panel
+					// Add the label to phone panel
 					phonePanel.add(phoneLabel);
 				}
 				phonePanel.setVisible(true);
 			} else {
-				System.out.println("List empty");
+				l2.setText("List not found or empty. Cannot deserialise!");
 			}
 		} else if (e.getSource().equals(b2)) {
 			System.out.println("Clear button clicked.");
 			l1.setText("Show Phones Table:");
 
-// Delete phones list
+			// Delete phones list
 			phonePanel.removeAll();
 			phonePanel.setVisible(false);
 		} else {
@@ -109,7 +113,7 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 		}
 	}
 
-// Call deserialisePhones method from TestPhone class
+	// Call deserialisePhones method from TestPhone class
 	public List<Phone> getPhoneList() {
 		return TestPhone.deserialisePhones();
 	}
