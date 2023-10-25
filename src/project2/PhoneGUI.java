@@ -8,15 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.List;
-import java.util.Set;
-
 import javax.swing.*;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 	Container cp;
-
 	GridBagLayout gridBag = new GridBagLayout();
 	GridBagConstraints c = new GridBagConstraints();
 
@@ -25,7 +22,6 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 	JLabel l1 = new JLabel("Show all Phones", SwingConstants.CENTER);
 	JLabel l2 = new JLabel(" ", SwingConstants.CENTER);
 	JLabel l3 = new JLabel(" ", SwingConstants.CENTER);
-
 	JPanel phonePanel = new JPanel();
 
 	public PhoneGUI() {
@@ -49,13 +45,13 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 		gridBag.setConstraints(l1, c);
 		cp.add(l1);
 
-// Add empty line between	
+		// Add empty line between
 		c.gridx = 0;
 		c.gridy = 1;
 		gridBag.setConstraints(l2, c);
 		cp.add(l2);
 
-// Phone labels panel
+		// Phone labels panel
 		phonePanel.setLayout(new BoxLayout(phonePanel, BoxLayout.Y_AXIS));
 		c.gridx = 0;
 		c.gridy = 2;
@@ -67,7 +63,7 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 		gridBag.setConstraints(b1, c);
 		cp.add(b1);
 
-// Add empty line between
+		// Add empty line between
 		c.gridx = 0;
 		c.gridy = 4;
 		gridBag.setConstraints(l3, c);
@@ -87,7 +83,7 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 		if (e.getSource().equals(b1)) {
 			System.out.println("Show button clicked.");
 			l1.setText("Phones Table");
-			
+			l2.setText(" ");
 			// Retrieve list of phones
 			List<Phone> phoneList = getPhoneList();
 			if (!phoneList.isEmpty()) {
@@ -96,15 +92,17 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 					JLabel phoneLabel = new JLabel(phone.printDetails(), SwingConstants.CENTER);
 					// Add the label to phone panel
 					phonePanel.add(phoneLabel);
+					System.out.println(phone.printDetails());
 				}
 				phonePanel.setVisible(true);
 			} else {
-				l2.setText("List not found or empty. Cannot deserialise!");
+
+				l2.setText("List not found or empty. Cannot Deserialise!");
 			}
 		} else if (e.getSource().equals(b2)) {
 			System.out.println("Clear button clicked.");
 			l1.setText("Show Phones Table:");
-
+			l2.setText("-Phones Table Cleared-");
 			// Delete phones list
 			phonePanel.removeAll();
 			phonePanel.setVisible(false);
@@ -113,7 +111,7 @@ public class PhoneGUI extends JFrame implements ActionListener, Serializable {
 		}
 	}
 
-	// Call deserialisePhones method from TestPhone class
+// Call deserialisePhones method from TestPhone class
 	public List<Phone> getPhoneList() {
 		return TestPhone.deserialisePhones();
 	}
